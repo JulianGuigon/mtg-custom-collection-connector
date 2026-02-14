@@ -1,0 +1,110 @@
+databaseChangeLog:
+  - changeSet:
+      id: m3c-2-create-table-mana-box-card
+      author: julian-guigon
+      changes:
+        - createTable:
+            schemaName: m3c
+            tableName: mana_box_card
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: scryfall_id
+                  type: varchar(50)
+                  defaultValue: 'UNKNOWN'
+                  constraints:
+                    nullable: false
+              - column:
+                  name: binder_name
+                  type: text
+                  defaultValue: ''
+                  constraints:
+                    nullable: false
+              - column:
+                  name: binder_type
+                  type: varchar(50)
+                  defaultValue: ''
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: text
+                  defaultValue: ''
+                  constraints:
+                    nullable: false
+              - column:
+                  name: set_code
+                  type: varchar(10)
+                  defaultValue: ''
+                  constraints:
+                    nullable: false
+              - column:
+                  name: set_name
+                  type: text
+                  defaultValue: ''
+                  constraints:
+                    nullable: false
+              - column:
+                  name: collector_number
+                  type: smallint
+                  defaultValue: '0'
+                  constraints:
+                    nullable: false
+              - column:
+                  name: foil
+                  type: varchar(50)
+                  defaultValue: ''
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rarity
+                  type: varchar(50)
+                  defaultValue: ''
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: smallint
+                  defaultValue: '0'
+                  constraints:
+                    nullable: false
+              - column:
+                  name: purchase_price
+                  type: float
+                  defaultValue: '0'
+                  constraints:
+                    nullable: false
+              - column:
+                  name: misprint
+                  type: boolean
+                  defaultValue: 'false'
+                  constraints:
+                    nullable: false
+              - column:
+                  name: altered
+                  type: boolean
+                  defaultValue: 'false'
+                  constraints:
+                    nullable: false
+              - column:
+                  name: condition
+                  type: varchar(50)
+                  defaultValue: ''
+                  constraints:
+                    nullable: false
+              - column:
+                  name: language
+                  type: varchar(10)
+                  defaultValue: ''
+                  constraints:
+                    nullable: false
+              - column:
+                  name: purchase_price_currency
+                  type: varchar(10)
+                  defaultValue: ''
+                  constraints:
+                    nullable: false

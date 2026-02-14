@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: classpath:db/changelog/m3c-2-create-schema.yaml
+  - include:
+      file: classpath:db/changelog/m3c-2-create-table-mana-box-card.yaml
