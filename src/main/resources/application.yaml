@@ -1,3 +1,11 @@
 spring:
   application:
     name: mtg-custom-collection-connector
+
+m3c:
+  binder:
+    names:
+      separator: "||"
+
+mybatis:
+  type-handlers-package: com.julian.guigon.mtg.custom.collection.connector.common.typehandler

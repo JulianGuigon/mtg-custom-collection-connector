@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Mapper
 public interface ManaBoxCardRepository {
@@ -27,7 +28,8 @@ public interface ManaBoxCardRepository {
 			@Result(property = "altered", column = "altered"),
 			@Result(property = "condition", column = "condition", typeHandler = ConditionEnumTypeHandler.class),
 			@Result(property = "language", column = "language", typeHandler = LanguageEnumTypeHandler.class),
-			@Result(property = "purchasePriceCurrency", column = "purchase_price_currency", typeHandler = CurrencyEnumTypeHandler.class)
+			@Result(property = "purchasePriceCurrency", column = "purchase_price_currency", typeHandler = CurrencyEnumTypeHandler.class),
+			@Result(property = "idCollection", column = "id_collection")
 	})
 	@Select("""
 			SELECT
@@ -47,7 +49,8 @@ public interface ManaBoxCardRepository {
 				c.altered,
 				c.condition,
 				c.language,
-				c.purchase_price_currency
+				c.purchase_price_currency,
+				c.id_collection
 			FROM m3c.mana_box_card c
 			WHERE c.id = #{id}""")
 	Optional<ManaBoxCardMb> findManaBoxCardMbById(Integer id);
@@ -69,7 +72,8 @@ public interface ManaBoxCardRepository {
 			@Result(property = "altered", column = "altered"),
 			@Result(property = "condition", column = "condition", typeHandler = ConditionEnumTypeHandler.class),
 			@Result(property = "language", column = "language", typeHandler = LanguageEnumTypeHandler.class),
-			@Result(property = "purchasePriceCurrency", column = "purchase_price_currency", typeHandler = CurrencyEnumTypeHandler.class)
+			@Result(property = "purchasePriceCurrency", column = "purchase_price_currency", typeHandler = CurrencyEnumTypeHandler.class),
+			@Result(property = "idCollection", column = "id_collection")
 	})
 	@Select("""
 			SELECT
@@ -89,17 +93,19 @@ public interface ManaBoxCardRepository {
 				c.altered,
 				c.condition,
 				c.language,
-				c.purchase_price_currency
-			FROM m3c.mana_box_card c""")
-	List<ManaBoxCardMb> findAllManaBoxCardMb();
+				c.purchase_price_currency,
+				c.id_collection
+			FROM m3c.mana_box_card c
+			WHERE c.id_collection = #{idCollection}""")
+	List<ManaBoxCardMb> findAllManaBoxCardMbByIdCollection(UUID idCollection);
 
 	@Insert({
 			"<script>",
 			"<if test='cards != null and cards.size() > 0'>",
 			"INSERT INTO m3c.mana_box_card (",
 			"id, scryfall_id, binder_name, binder_type, name, set_code, set_name, ",
-			"collector_number, foil, rarity, quantity, purchase_price, ",
-			"misprint, altered, condition, language, purchase_price_currency",
+			"collector_number, foil, rarity, quantity, purchase_price, misprint, ",
+			"altered, condition, language, purchase_price_currency, id_collection",
 			") VALUES ",
 			"<foreach collection='cards' item='c' separator=','>",
 			"(",
@@ -119,7 +125,8 @@ public interface ManaBoxCardRepository {
 			"#{c.altered},",
 			"#{c.condition},",
 			"#{c.language},",
-			"#{c.purchasePriceCurrency}",
+			"#{c.purchasePriceCurrency},",
+			"#{c.idCollection}",
 			")",
 			"</foreach>",
 			"</if>",
@@ -127,6 +134,6 @@ public interface ManaBoxCardRepository {
 	})
 	int insertAllManaBoxCardMb(@Param("cards") List<ManaBoxCardMb> cards);
 
-	@Delete("DELETE FROM m3c.mana_box_card")
-	boolean deleteAllManaBoxCardMb();
+	@Delete("DELETE FROM m3c.mana_box_card c WHERE c.id_collection = #{idCollection}")
+	boolean deleteAllManaBoxCardMbByIdCollection(UUID idCollection);
 }

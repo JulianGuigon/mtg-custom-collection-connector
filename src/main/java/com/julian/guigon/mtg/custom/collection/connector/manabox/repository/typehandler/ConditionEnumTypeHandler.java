@@ -12,30 +12,22 @@ import java.sql.SQLException;
 public class ConditionEnumTypeHandler extends BaseTypeHandler<ConditionEnum> {
 
 	@Override
-	public void setNonNullParameter(
-			PreparedStatement ps,
-			int i,
-			ConditionEnum parameter,
-			JdbcType jdbcType
-	) throws SQLException {
+	public void setNonNullParameter(PreparedStatement ps, int i, ConditionEnum parameter, JdbcType jdbcType) throws SQLException {
 		ps.setString(i, parameter.getName());
 	}
 
 	@Override
-	public ConditionEnum getNullableResult(ResultSet rs, String columnName)
-			throws SQLException {
+	public ConditionEnum getNullableResult(ResultSet rs, String columnName) throws SQLException {
 		return ConditionEnum.fromString(rs.getString(columnName));
 	}
 
 	@Override
-	public ConditionEnum getNullableResult(ResultSet rs, int columnIndex)
-			throws SQLException {
+	public ConditionEnum getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
 		return ConditionEnum.fromString(rs.getString(columnIndex));
 	}
 
 	@Override
-	public ConditionEnum getNullableResult(CallableStatement cs, int columnIndex)
-			throws SQLException {
+	public ConditionEnum getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
 		return ConditionEnum.fromString(cs.getString(columnIndex));
 	}
 }

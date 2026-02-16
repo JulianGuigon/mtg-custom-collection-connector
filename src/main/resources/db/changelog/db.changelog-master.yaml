@@ -3,3 +3,7 @@ databaseChangeLog:
       file: classpath:db/changelog/m3c-2-create-schema.yaml
   - include:
       file: classpath:db/changelog/m3c-2-create-table-mana-box-card.yaml
+  - include:
+      file: classpath:db/changelog/m3c-5-create-table-mana-box-collection.yaml
+  - include:
+      file: classpath:db/changelog/m3c-5-update-table-mana-box-card-new-id-collection-field.yaml

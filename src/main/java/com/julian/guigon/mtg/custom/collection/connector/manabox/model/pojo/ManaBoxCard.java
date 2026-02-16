@@ -2,6 +2,8 @@ package com.julian.guigon.mtg.custom.collection.connector.manabox.model.pojo;
 
 import com.julian.guigon.mtg.custom.collection.connector.manabox.model.enums.*;
 
+import java.util.UUID;
+
 public record ManaBoxCard(
 		Integer id,
 		String scryfallId,
@@ -19,6 +21,7 @@ public record ManaBoxCard(
 		boolean altered,
 		ConditionEnum condition,
 		LanguageEnum language,
-		CurrencyEnum purchasePriceCurrency
+		CurrencyEnum purchasePriceCurrency,
+		UUID idCollection
 ) {
 }

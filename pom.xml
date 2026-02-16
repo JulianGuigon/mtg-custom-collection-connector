@@ -205,7 +205,7 @@
 					<useClasspathJar>true</useClasspathJar>
 					<verbose>false</verbose>
 					<targetClasses>
-						<param>com.julian.guigon.mtg.custom.collection.connector.manabox.service.ManaBoxCardService</param>
+						<param>com.julian.guigon.mtg.custom.collection.connector.manabox.service.*</param>
 					</targetClasses>
 					<excludedTestClasses>
 						<param>*MapperImpl</param>

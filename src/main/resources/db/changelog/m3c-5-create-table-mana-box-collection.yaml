@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: m3c-5-create-table-mana-box-collection
+      author: julian-guigon
+      changes:
+        - createTable:
+            schemaName: m3c
+            tableName: mana_box_collection
+            columns:
+              - column:
+                  name: id
+                  type: varchar(50)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: text
+                  defaultValue: ''
+                  constraints:
+                    nullable: false
+              - column:
+                  name: creation_date
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: binder_names
+                  type: text
+                  defaultValue: ''
+                  constraints:
+                    nullable: false
