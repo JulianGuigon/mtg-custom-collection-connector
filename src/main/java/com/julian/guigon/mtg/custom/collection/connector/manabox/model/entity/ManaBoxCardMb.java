@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,4 +28,5 @@ public class ManaBoxCardMb {
 	private ConditionEnum condition;
 	private LanguageEnum language;
 	private CurrencyEnum purchasePriceCurrency;
+	private UUID idCollection;
 }

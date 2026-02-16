@@ -12,30 +12,22 @@ import java.sql.SQLException;
 public class LanguageEnumTypeHandler extends BaseTypeHandler<LanguageEnum> {
 
 	@Override
-	public void setNonNullParameter(
-			PreparedStatement ps,
-			int i,
-			LanguageEnum parameter,
-			JdbcType jdbcType
-	) throws SQLException {
+	public void setNonNullParameter(PreparedStatement ps, int i, LanguageEnum parameter, JdbcType jdbcType) throws SQLException {
 		ps.setString(i, parameter.getName());
 	}
 
 	@Override
-	public LanguageEnum getNullableResult(ResultSet rs, String columnName)
-			throws SQLException {
+	public LanguageEnum getNullableResult(ResultSet rs, String columnName) throws SQLException {
 		return LanguageEnum.fromString(rs.getString(columnName));
 	}
 
 	@Override
-	public LanguageEnum getNullableResult(ResultSet rs, int columnIndex)
-			throws SQLException {
+	public LanguageEnum getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
 		return LanguageEnum.fromString(rs.getString(columnIndex));
 	}
 
 	@Override
-	public LanguageEnum getNullableResult(CallableStatement cs, int columnIndex)
-			throws SQLException {
+	public LanguageEnum getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
 		return LanguageEnum.fromString(cs.getString(columnIndex));
 	}
 }

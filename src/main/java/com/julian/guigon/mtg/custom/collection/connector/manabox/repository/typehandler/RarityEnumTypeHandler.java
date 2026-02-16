@@ -12,30 +12,22 @@ import java.sql.SQLException;
 public class RarityEnumTypeHandler extends BaseTypeHandler<RarityEnum> {
 
 	@Override
-	public void setNonNullParameter(
-			PreparedStatement ps,
-			int i,
-			RarityEnum parameter,
-			JdbcType jdbcType
-	) throws SQLException {
+	public void setNonNullParameter(PreparedStatement ps, int i, RarityEnum parameter, JdbcType jdbcType) throws SQLException {
 		ps.setString(i, parameter.getName());
 	}
 
 	@Override
-	public RarityEnum getNullableResult(ResultSet rs, String columnName)
-			throws SQLException {
+	public RarityEnum getNullableResult(ResultSet rs, String columnName) throws SQLException {
 		return RarityEnum.fromString(rs.getString(columnName));
 	}
 
 	@Override
-	public RarityEnum getNullableResult(ResultSet rs, int columnIndex)
-			throws SQLException {
+	public RarityEnum getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
 		return RarityEnum.fromString(rs.getString(columnIndex));
 	}
 
 	@Override
-	public RarityEnum getNullableResult(CallableStatement cs, int columnIndex)
-			throws SQLException {
+	public RarityEnum getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
 		return RarityEnum.fromString(cs.getString(columnIndex));
 	}
 }

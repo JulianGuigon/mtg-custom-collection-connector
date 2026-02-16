@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: m3c-5-update-table-mana-box-card-new-id-collection-field.yaml
+      author: julian-guigon
+      changes:
+        - addColumn:
+            schemaName: m3c
+            tableName: mana_box_card
+            columns:
+              - name: id_collection
+                type: varchar(50)
+                constraints:
+                  nullable: false
+        - addForeignKeyConstraint:
+            baseTableSchemaName: m3c
+            baseColumnNames: id_collection
+            baseTableName: mana_box_card
+            constraintName: fk_mana_box_card_fk_mana_box_collection
+            referencedTableSchemaName: m3c
+            referencedColumnNames: id
+            referencedTableName: mana_box_collection
