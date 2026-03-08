@@ -1,0 +1,25 @@
+info:
+  name: Import manabox csv
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/manabox/import?collectionName={{COLLECTION_JULIAN_GUIGON}}&path={{PATH_COLLECTION_JULIAN_GUIGON}}&newCollection=false
+  params:
+    - name: collectionName
+      value: "{{COLLECTION_JULIAN_GUIGON}}"
+      type: query
+    - name: path
+      value: "{{PATH_COLLECTION_JULIAN_GUIGON}}"
+      type: query
+    - name: newCollection
+      value: "false"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

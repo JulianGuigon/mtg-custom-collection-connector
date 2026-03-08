@@ -17,7 +17,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.postgresql.util.PSQLException;
 
 import java.util.List;
 import java.util.Optional;
@@ -58,7 +57,7 @@ public class ManaBoxCardServiceTest {
 	@Test
 	void findManaBoxCardById_nominal_returnManaBoxCard() {
 		// GIVEN
-		final Integer id = 1;
+		final String id = "1";
 		final ManaBoxCardMb manaBoxCardMb = Instancio.create(ManaBoxCardMb.class);
 		final ManaBoxCard manaBoxCard = Instancio.create(ManaBoxCard.class);
 		Mockito.when(manaBoxCardRepository.findManaBoxCardMbById(id)).thenReturn(Optional.of(manaBoxCardMb));
@@ -74,8 +73,8 @@ public class ManaBoxCardServiceTest {
 	@Test
 	void findManaBoxCardById_noData_returnNothing() {
 		// GIVEN
-		final Integer id = 1;
-		Mockito.when(manaBoxCardRepository.findManaBoxCardMbById(ArgumentMatchers.anyInt())).thenReturn(Optional.empty());
+		final String id = "1";
+		Mockito.when(manaBoxCardRepository.findManaBoxCardMbById(ArgumentMatchers.anyString())).thenReturn(Optional.empty());
 
 		// WHEN
 		final Optional<ManaBoxCard> result = sut.findManaBoxCardById(id);

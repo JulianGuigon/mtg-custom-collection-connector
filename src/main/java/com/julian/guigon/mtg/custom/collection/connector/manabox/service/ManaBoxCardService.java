@@ -4,6 +4,7 @@ import com.julian.guigon.mtg.custom.collection.connector.manabox.mapper.ManaBoxC
 import com.julian.guigon.mtg.custom.collection.connector.manabox.model.pojo.ManaBoxCard;
 import com.julian.guigon.mtg.custom.collection.connector.manabox.repository.ManaBoxCardRepository;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.ListUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.stream.Stream;
 @Service
 public class ManaBoxCardService {
 
+	private static final int BATCH_SIZE = 1000;
+
 	private final ManaBoxCardRepository manaBoxCardRepository;
 	private final ManaBoxCardMapper manaBoxCardMapper;
 
@@ -22,7 +25,7 @@ public class ManaBoxCardService {
 		this.manaBoxCardMapper = manaBoxCardMapper;
 	}
 
-	public Optional<ManaBoxCard> findManaBoxCardById(Integer id) {
+	public Optional<ManaBoxCard> findManaBoxCardById(String id) {
 		if (id == null) {
 			return Optional.empty();
 		}
@@ -47,9 +50,12 @@ public class ManaBoxCardService {
 		try {
 			return Stream.of(manaBoxCards)
 					.map(manaBoxCardMapper::manaBoxCardMbsFromManaBoxCards)
-					.map(manaBoxCardRepository::insertAllManaBoxCardMb)
-					.findFirst()
-					.get();
+					.flatMap(list -> ListUtils.partition(list, BATCH_SIZE)
+							.stream()
+							.map(manaBoxCardRepository::insertAllManaBoxCardMb)
+					)
+					.mapToInt(Integer::intValue)
+					.sum();
 		} catch (Exception ignored) {
 			return 0;
 		}

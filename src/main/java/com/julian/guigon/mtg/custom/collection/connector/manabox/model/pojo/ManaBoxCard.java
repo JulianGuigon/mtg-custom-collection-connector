@@ -1,18 +1,21 @@
 package com.julian.guigon.mtg.custom.collection.connector.manabox.model.pojo;
 
 import com.julian.guigon.mtg.custom.collection.connector.manabox.model.enums.*;
+import io.soabase.recordbuilder.core.RecordBuilder;
 
 import java.util.UUID;
 
+@RecordBuilder
 public record ManaBoxCard(
-		Integer id,
+		String id,
+		String manaboxId,
 		String scryfallId,
 		String binderName,
 		String binderType,
 		String name,
 		String setCode,
 		String setName,
-		Integer collectorNumber,
+		String collectorNumber,
 		FoilEnum foil,
 		RarityEnum rarity,
 		Integer quantity,

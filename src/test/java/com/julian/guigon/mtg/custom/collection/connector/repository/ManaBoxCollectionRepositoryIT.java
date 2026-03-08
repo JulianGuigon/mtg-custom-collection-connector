@@ -5,17 +5,18 @@ import com.julian.guigon.mtg.custom.collection.connector.manabox.model.entity.Ma
 import com.julian.guigon.mtg.custom.collection.connector.manabox.repository.ManaBoxCollectionRepository;
 import org.assertj.core.api.Assertions;
 import org.instancio.Instancio;
+import org.instancio.Select;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ManaBoxCollectionRepositoryIT extends AbstractPostgresIT {
 	private static final UUID ID_COLLECTION = UUID.fromString("a7397c6a-a29f-4495-898c-028355708f33");
+	private static final String NAME_COLLECTION = "Collection Julian";
 
 	@Autowired
 	private ManaBoxCollectionRepository sut;
@@ -34,7 +35,6 @@ public class ManaBoxCollectionRepositoryIT extends AbstractPostgresIT {
 
 
 	@Test
-	@Sql(value = "/sql/import_1_manaboxcollection.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	@Sql(value = "/sql/delete_all_collections.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 	void findManaBoxCollectionById_noData_returnNoResult() {
 		// GIVEN
@@ -42,7 +42,31 @@ public class ManaBoxCollectionRepositoryIT extends AbstractPostgresIT {
 		final Optional<ManaBoxCollectionMb> collectionInDb = sut.findManaBoxCollectionById(ID_COLLECTION);
 
 		// THEN
+		Assertions.assertThat(collectionInDb).isEmpty();
+	}
+
+	@Test
+	@Sql(value = "/sql/import_1_manaboxcollection.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Sql(value = "/sql/delete_all_collections.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+	void findManaBoxCollectionByName_nominal_returnOneResult() {
+		// GIVEN
+		// WHEN
+		final Optional<ManaBoxCollectionMb> collectionInDb = sut.findManaBoxCollectionByName(NAME_COLLECTION);
+
+		// THEN
 		Assertions.assertThat(collectionInDb).isPresent();
+	}
+
+
+	@Test
+	@Sql(value = "/sql/delete_all_collections.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+	void findManaBoxCollectionByName_noData_returnNoResult() {
+		// GIVEN
+		// WHEN
+		final Optional<ManaBoxCollectionMb> collectionInDb = sut.findManaBoxCollectionByName(NAME_COLLECTION);
+
+		// THEN
+		Assertions.assertThat(collectionInDb).isEmpty();
 	}
 
 	@Test
@@ -56,6 +80,34 @@ public class ManaBoxCollectionRepositoryIT extends AbstractPostgresIT {
 
 		// THEN
 		Assertions.assertThat(result).isEqualTo(1);
+	}
+
+	@Test
+	@Sql(value = "/sql/import_1_manaboxcollection.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Sql(value = "/sql/delete_all_collections.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+	void updateManaBoxCollection_nominal_oneUpdated() {
+		// GIVEN
+		final ManaBoxCollectionMb manaBoxCollectionMb = Instancio.of(ManaBoxCollectionMb.class)
+				.set(Select.field(ManaBoxCollectionMb::getId), ID_COLLECTION)
+				.create();
+
+		// WHEN
+		final int result = sut.updateManaBoxCollection(manaBoxCollectionMb);
+		final Optional<ManaBoxCollectionMb> collectionInDb = sut.findManaBoxCollectionById(ID_COLLECTION);
+
+		// THEN
+		Assertions.assertThat(result).isEqualTo(1);
+		Assertions.assertThat(collectionInDb)
+				.isPresent()
+				.get()
+				.satisfies(collectionInDbMapped -> {
+							Assertions.assertThat(collectionInDbMapped.getName()).isEqualTo(manaBoxCollectionMb.getName());
+							Assertions.assertThat(collectionInDbMapped.getCreationDate().truncatedTo(ChronoUnit.MILLIS))
+									.isEqualTo(manaBoxCollectionMb.getCreationDate().truncatedTo(ChronoUnit.MILLIS));
+							Assertions.assertThat(collectionInDbMapped.getBinderNames()).isEqualTo(manaBoxCollectionMb.getBinderNames());
+						}
+				);
+		;
 	}
 
 	@Test

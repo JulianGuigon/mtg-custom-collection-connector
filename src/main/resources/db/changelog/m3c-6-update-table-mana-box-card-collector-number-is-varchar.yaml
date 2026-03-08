@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: m3c-6-update-table-mana-box-card-collector-number-is-varchar.yaml
+      author: julian-guigon
+      changes:
+        - modifyDataType:
+            schemaName: m3c
+            tableName: mana_box_card
+            columnName: collector_number
+            newDataType: varchar(50)

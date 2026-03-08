@@ -7,6 +7,7 @@ import java.util.Arrays;
 @Getter
 public enum FoilEnum {
 	NORMAL("normal"),
+	ETCHED("etched"),
 	FOIL("foil");
 
 	private final String name;

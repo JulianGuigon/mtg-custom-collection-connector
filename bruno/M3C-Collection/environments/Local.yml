@@ -1,0 +1,10 @@
+name: Local
+variables:
+  - secret: true
+    name: COLLECTION_JULIAN_GUIGON
+  - secret: true
+    name: COLLECTION_MICHAEL_COLL
+  - secret: true
+    name: PATH_COLLECTION_JULIAN_GUIGON
+  - secret: true
+    name: PATH_COLLECTION_MICHAEL_COLL

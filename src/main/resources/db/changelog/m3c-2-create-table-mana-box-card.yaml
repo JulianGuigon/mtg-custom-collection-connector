@@ -98,13 +98,13 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: language
-                  type: varchar(10)
+                  type: varchar(50)
                   defaultValue: ''
                   constraints:
                     nullable: false
               - column:
                   name: purchase_price_currency
-                  type: varchar(10)
+                  type: varchar(50)
                   defaultValue: ''
                   constraints:
                     nullable: false

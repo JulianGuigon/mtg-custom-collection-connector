@@ -14,24 +14,27 @@
 	<name>mtg-custom-collection-connector</name>
 	<description>Connect services (ex: Manabox, Scryfall) for managing a custom MTG collection</description>
 	<properties>
+		<apache-commons-csv.version>1.14.1</apache-commons-csv.version>
+		<instancio-junit.version>5.5.1</instancio-junit.version>
 		<java.version>21</java.version>
 		<lombok.version>1.18.34</lombok.version>
-		<spring-boot-starter-liquibase.version>4.0.2</spring-boot-starter-liquibase.version>
-		<assertj-core.version>3.27.7</assertj-core.version>
-		<mybatis-spring-boot.version>4.0.1</mybatis-spring-boot.version>
-		<testcontainers.version>2.0.2</testcontainers.version>
-		<instancio-junit.version>5.5.1</instancio-junit.version>
-		<mapstruct.version>1.6.3</mapstruct.version>
-		<pitest-maven.version>1.22.1</pitest-maven.version>
 		<pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
+		<pitest-maven.version>1.22.1</pitest-maven.version>
+		<mapstruct.version>1.6.3</mapstruct.version>
+		<mybatis-spring-boot.version>4.0.1</mybatis-spring-boot.version>
+		<spring-boot-starter-liquibase.version>4.0.2</spring-boot-starter-liquibase.version>
+		<testcontainers.version>2.0.3</testcontainers.version>
+		<record-builder-core.version>52</record-builder-core.version>
+		<jackson.version>3.1.0</jackson.version>
+		<maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
 	</properties>
 	<dependencies>
-		<!-- AssertJ-->
+		<!-- Apache Commons CSV -->
 		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>${assertj-core.version}</version>
-			<scope>test</scope>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>${apache-commons-csv.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- Docker compose -->
@@ -50,12 +53,12 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Junit -->
+		<!-- Jackson -->
 		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-launcher</artifactId>
-			<version>6.0.2</version>
-			<scope>test</scope>
+			<groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- Liquibase -->
@@ -107,6 +110,14 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Record Builder -->
+		<dependency>
+			<groupId>io.soabase.record-builder</groupId>
+			<artifactId>record-builder-core</artifactId>
+			<version>${record-builder-core.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
 		<!-- Spring Actuator -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -118,11 +129,19 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Spring Boot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-restclient</artifactId>
+		</dependency>
+
 		<!-- Spring Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webmvc</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- Spring Web Mvc -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
@@ -132,18 +151,18 @@
 		<!-- Test Containers -->
 		<dependency>
 			<groupId>org.testcontainers</groupId>
-			<artifactId>testcontainers</artifactId>
-			<version>${testcontainers.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.testcontainers</groupId>
 			<artifactId>testcontainers-junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>testcontainers-postgresql</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- Support Spring Boot 3.1+ pour pouvoir utiliser l'annotation @ServiceConnection -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-testcontainers</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -166,6 +185,11 @@
 							<groupId>org.mapstruct</groupId>
 							<artifactId>mapstruct-processor</artifactId>
 							<version>${mapstruct.version}</version>
+						</path>
+						<path>
+							<groupId>io.soabase.record-builder</groupId>
+							<artifactId>record-builder-processor</artifactId>
+							<version>${record-builder-core.version}</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
@@ -205,12 +229,27 @@
 					<useClasspathJar>true</useClasspathJar>
 					<verbose>false</verbose>
 					<targetClasses>
-						<param>com.julian.guigon.mtg.custom.collection.connector.manabox.service.*</param>
+						<param>com.julian.guigon.mtg.custom.collection.connector.*</param>
 					</targetClasses>
+					<excludedClasses>
+						<param>*Enum</param>
+						<param>*TypeHandler</param>
+						<param>*.pojo.*</param>
+					</excludedClasses>
 					<excludedTestClasses>
-						<param>*MapperImpl</param>
 						<param>*IT</param>
 					</excludedTestClasses>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<includes>
+						<include>**/*Test.java</include>
+						<include>**/*IT.java</include>
+					</includes>
 				</configuration>
 			</plugin>
 		</plugins>
