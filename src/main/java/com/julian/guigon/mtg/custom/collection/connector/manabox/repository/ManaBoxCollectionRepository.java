@@ -26,6 +26,22 @@ public interface ManaBoxCollectionRepository {
 			WHERE c.id = #{id}""")
 	Optional<ManaBoxCollectionMb> findManaBoxCollectionById(UUID id);
 
+	@Results({
+			@Result(property = "id", column = "id"),
+			@Result(property = "name", column = "name"),
+			@Result(property = "creationDate", column = "creation_date"),
+			@Result(property = "binderNames", column = "binder_names", typeHandler = BinderNamesTypeHandler.class)
+	})
+	@Select("""
+			SELECT
+				c.id,
+				c.name,
+				c.creation_date,
+				c.binder_names
+			FROM m3c.mana_box_collection c
+			WHERE c.name = #{name}""")
+	Optional<ManaBoxCollectionMb> findManaBoxCollectionByName(String name);
+
 	@Insert(value = """
 			INSERT INTO m3c.mana_box_collection (
 				id,
@@ -40,6 +56,9 @@ public interface ManaBoxCollectionRepository {
 			)
 			""")
 	int insertOneManaBoxCollection(ManaBoxCollectionMb c);
+
+	@Update("UPDATE m3c.mana_box_collection SET name = #{name}, creation_date = #{creationDate}, binder_names = #{binderNames} WHERE id = #{id}")
+	int updateManaBoxCollection(ManaBoxCollectionMb c);
 
 	@Delete("DELETE FROM m3c.mana_box_collection WHERE id=#{id}")
 	boolean deleteManaBoxCollectionById(UUID id);

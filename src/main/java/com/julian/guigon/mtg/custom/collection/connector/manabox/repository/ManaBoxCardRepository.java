@@ -13,6 +13,7 @@ public interface ManaBoxCardRepository {
 
 	@Results({
 			@Result(property = "id", column = "id"),
+			@Result(property = "manaboxId", column = "manabox_id"),
 			@Result(property = "scryfallId", column = "scryfall_id"),
 			@Result(property = "binderName", column = "binder_name"),
 			@Result(property = "binderType", column = "binder_type"),
@@ -34,6 +35,7 @@ public interface ManaBoxCardRepository {
 	@Select("""
 			SELECT
 				c.id,
+				c.manabox_id,
 				c.scryfall_id,
 				c.binder_name,
 				c.binder_type,
@@ -53,10 +55,11 @@ public interface ManaBoxCardRepository {
 				c.id_collection
 			FROM m3c.mana_box_card c
 			WHERE c.id = #{id}""")
-	Optional<ManaBoxCardMb> findManaBoxCardMbById(Integer id);
+	Optional<ManaBoxCardMb> findManaBoxCardMbById(String id);
 
 	@Results({
 			@Result(property = "id", column = "id"),
+			@Result(property = "manaboxId", column = "manabox_id"),
 			@Result(property = "scryfallId", column = "scryfall_id"),
 			@Result(property = "binderName", column = "binder_name"),
 			@Result(property = "binderType", column = "binder_type"),
@@ -78,6 +81,7 @@ public interface ManaBoxCardRepository {
 	@Select("""
 			SELECT
 				c.id,
+				c.manabox_id,
 				c.scryfall_id,
 				c.binder_name,
 				c.binder_type,
@@ -103,13 +107,14 @@ public interface ManaBoxCardRepository {
 			"<script>",
 			"<if test='cards != null and cards.size() > 0'>",
 			"INSERT INTO m3c.mana_box_card (",
-			"id, scryfall_id, binder_name, binder_type, name, set_code, set_name, ",
+			"id, manabox_id, scryfall_id, binder_name, binder_type, name, set_code, set_name, ",
 			"collector_number, foil, rarity, quantity, purchase_price, misprint, ",
 			"altered, condition, language, purchase_price_currency, id_collection",
 			") VALUES ",
 			"<foreach collection='cards' item='c' separator=','>",
 			"(",
 			"#{c.id},",
+			"#{c.manaboxId},",
 			"#{c.scryfallId},",
 			"#{c.binderName},",
 			"#{c.binderType},",

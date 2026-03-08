@@ -8,7 +8,8 @@ import java.util.Arrays;
 public enum LanguageEnum {
 	ENGLISH("en"),
 	FRENCH("fr"),
-	JAPANESE("jp");
+	ITALIAN("it"),
+	JAPANESE("ja");
 
 	private final String name;
 

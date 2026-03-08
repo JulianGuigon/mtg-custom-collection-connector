@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: m3c-6-update-table-mana-box-card-new-id-manabox-field.yaml
+      author: julian-guigon
+      changes:
+        - addColumn:
+            schemaName: m3c
+            tableName: mana_box_card
+            columns:
+              - name: manabox_id
+                type: varchar(50)
+                defaultValue: 'UNKNOWN'
+                constraints:
+                  nullable: false
+        - modifyDataType:
+            schemaName: m3c
+            tableName: mana_box_card
+            columnName: id
+            newDataType: varchar(50)

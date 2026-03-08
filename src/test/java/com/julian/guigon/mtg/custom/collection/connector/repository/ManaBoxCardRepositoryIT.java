@@ -8,7 +8,6 @@ import org.instancio.Instancio;
 import org.instancio.Select;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ManaBoxCardRepositoryIT extends AbstractPostgresIT {
 
 	private static final UUID ID_COLLECTION = UUID.fromString("a7397c6a-a29f-4495-898c-028355708f33");
@@ -29,7 +27,7 @@ public class ManaBoxCardRepositoryIT extends AbstractPostgresIT {
 	@Sql(value = "/sql/delete_all_collections.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 	void findManaBoxCardMbById_nominal_returnOneResult() {
 		// GIVEN
-		final Integer id = 54680;
+		final String id = "ba017979-a99e-4129-b1a8-fc7643573ae3";
 
 		// WHEN
 		final Optional<ManaBoxCardMb> cardsInDb = sut.findManaBoxCardMbById(id);
@@ -41,7 +39,7 @@ public class ManaBoxCardRepositoryIT extends AbstractPostgresIT {
 	@Test
 	void findManaBoxCardMbById_noResult_returnNoResult() {
 		// GIVEN
-		final Integer id = 54680;
+		final String id = "ba017979-a99e-4129-b1a8-fc7643573ae3";
 
 		// WHEN
 		final Optional<ManaBoxCardMb> cardsInDb = sut.findManaBoxCardMbById(id);

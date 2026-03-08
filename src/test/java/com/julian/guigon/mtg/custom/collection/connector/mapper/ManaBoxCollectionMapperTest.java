@@ -53,4 +53,30 @@ public class ManaBoxCollectionMapperTest {
 					Assertions.assertThat(manaBoxCollectionMb.getBinderNames()).isEqualTo(manaBoxCollection.binderNames());
 				});
 	}
+
+	@Test
+	void manaBoxCollectionFromManaBoxCollectionMb_nullValue_shouldReturnNull() {
+		// GIVEN
+		final ManaBoxCollectionMb manaBoxCollectionMb = null;
+
+		// WHEN
+		final ManaBoxCollection result = sut.manaBoxCollectionFromManaBoxCollectionMb(manaBoxCollectionMb);
+
+		// THEN
+		Assertions.assertThat(result)
+				.isNull();
+	}
+
+	@Test
+	void manaBoxCollectionMbFromManaBoxCollection_nullValue_shouldReturnNull() {
+		// GIVEN
+		final ManaBoxCollection manaBoxCollection = null;
+
+		// WHEN
+		final ManaBoxCollectionMb result = sut.manaBoxCollectionMbFromManaBoxCollection(manaBoxCollection);
+
+		// THEN
+		Assertions.assertThat(result)
+				.isNull();
+	}
 }

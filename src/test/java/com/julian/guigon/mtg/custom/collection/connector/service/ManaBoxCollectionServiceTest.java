@@ -21,6 +21,7 @@ import java.util.UUID;
 public class ManaBoxCollectionServiceTest {
 
 	private static final UUID ID_COLLECTION = UUID.fromString("a7397c6a-a29f-4495-898c-028355708f33");
+	private static final String COLLECTION_NAME = "Collection Julian";
 
 	@InjectMocks
 	private ManaBoxCollectionService sut;
@@ -70,6 +71,44 @@ public class ManaBoxCollectionServiceTest {
 	}
 
 	@Test
+	void findManaBoxCollectionByName_nominal_returnManaBoxCollection() {
+		// GIVEN
+		final ManaBoxCollectionMb manaBoxCollectionMb = Instancio.create(ManaBoxCollectionMb.class);
+		final ManaBoxCollection manaBoxCollection = Instancio.create(ManaBoxCollection.class);
+		Mockito.when(manaBoxCollectionRepository.findManaBoxCollectionByName(COLLECTION_NAME)).thenReturn(Optional.of(manaBoxCollectionMb));
+		Mockito.when(manaBoxCollectionMapper.manaBoxCollectionFromManaBoxCollectionMb(manaBoxCollectionMb)).thenReturn(manaBoxCollection);
+
+		// WHEN
+		final Optional<ManaBoxCollection> result = sut.findManaBoxCollectionByName(COLLECTION_NAME);
+
+		// THEN
+		Assertions.assertThat(result).isPresent();
+	}
+
+	@Test
+	void findManaBoxCollectionByName_noData_returnNothing() {
+		// GIVEN
+		Mockito.when(manaBoxCollectionRepository.findManaBoxCollectionByName(COLLECTION_NAME)).thenReturn(Optional.empty());
+
+		// WHEN
+		final Optional<ManaBoxCollection> result = sut.findManaBoxCollectionByName(COLLECTION_NAME);
+
+		// THEN
+		Assertions.assertThat(result).isEmpty();
+	}
+
+	@Test
+	void findManaBoxCollectionByName_nullUuid_returnNothing() {
+		// GIVEN
+		// WHEN
+		final Optional<ManaBoxCollection> result = sut.findManaBoxCollectionByName(null);
+
+		// THEN
+		Assertions.assertThat(result).isEmpty();
+		Mockito.verifyNoInteractions(manaBoxCollectionRepository);
+	}
+
+	@Test
 	void insertOneManaBoxCollection_nominal_returnOne() {
 		// GIVEN
 		final ManaBoxCollection manaBoxCollection = Instancio.create(ManaBoxCollection.class);
@@ -89,6 +128,32 @@ public class ManaBoxCollectionServiceTest {
 		// GIVEN
 		// WHEN
 		final int result = sut.insertOneManaBoxCollection(null);
+
+		// THEN
+		Assertions.assertThat(result).isEqualTo(0);
+		Mockito.verifyNoInteractions(manaBoxCollectionRepository);
+	}
+
+	@Test
+	void updateManaBoxCollection_nominal_returnOne() {
+		// GIVEN
+		final ManaBoxCollection manaBoxCollection = Instancio.create(ManaBoxCollection.class);
+		final ManaBoxCollectionMb manaBoxCollectionMb = Instancio.create(ManaBoxCollectionMb.class);
+		Mockito.when(manaBoxCollectionMapper.manaBoxCollectionMbFromManaBoxCollection(manaBoxCollection)).thenReturn(manaBoxCollectionMb);
+		Mockito.when(manaBoxCollectionRepository.updateManaBoxCollection(manaBoxCollectionMb)).thenReturn(1);
+
+		// WHEN
+		final int result = sut.updateManaBoxCollection(manaBoxCollection);
+
+		// THEN
+		Assertions.assertThat(result).isEqualTo(1);
+	}
+
+	@Test
+	void updateManaBoxCollection_nullInserted_returnZero() {
+		// GIVEN
+		// WHEN
+		final int result = sut.updateManaBoxCollection(null);
 
 		// THEN
 		Assertions.assertThat(result).isEqualTo(0);

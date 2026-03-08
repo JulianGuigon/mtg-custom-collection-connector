@@ -3,6 +3,7 @@ package com.julian.guigon.mtg.custom.collection.connector.manabox.service;
 import com.julian.guigon.mtg.custom.collection.connector.manabox.mapper.ManaBoxCollectionMapper;
 import com.julian.guigon.mtg.custom.collection.connector.manabox.model.pojo.ManaBoxCollection;
 import com.julian.guigon.mtg.custom.collection.connector.manabox.repository.ManaBoxCollectionRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,10 +22,18 @@ public class ManaBoxCollectionService {
 	}
 
 	public Optional<ManaBoxCollection> findManaBoxCollectionById(UUID id) {
-		if(id == null) {
+		if (id == null) {
 			return Optional.empty();
 		}
 		return manaBoxCollectionRepository.findManaBoxCollectionById(id)
+				.map(manaBoxCollectionMapper::manaBoxCollectionFromManaBoxCollectionMb);
+	}
+
+	public Optional<ManaBoxCollection> findManaBoxCollectionByName(String name) {
+		if (StringUtils.isBlank(name)) {
+			return Optional.empty();
+		}
+		return manaBoxCollectionRepository.findManaBoxCollectionByName(name)
 				.map(manaBoxCollectionMapper::manaBoxCollectionFromManaBoxCollectionMb);
 	}
 
@@ -35,6 +44,17 @@ public class ManaBoxCollectionService {
 		return Stream.of(manaBoxCollection)
 				.map(manaBoxCollectionMapper::manaBoxCollectionMbFromManaBoxCollection)
 				.map(manaBoxCollectionRepository::insertOneManaBoxCollection)
+				.findFirst()
+				.get();
+	}
+
+	public int updateManaBoxCollection(ManaBoxCollection manaBoxCollection) {
+		if (manaBoxCollection == null) {
+			return 0;
+		}
+		return Stream.of(manaBoxCollection)
+				.map(manaBoxCollectionMapper::manaBoxCollectionMbFromManaBoxCollection)
+				.map(manaBoxCollectionRepository::updateManaBoxCollection)
 				.findFirst()
 				.get();
 	}

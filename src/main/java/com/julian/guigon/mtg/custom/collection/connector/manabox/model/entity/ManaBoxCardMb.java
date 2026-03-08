@@ -11,14 +11,15 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class ManaBoxCardMb {
-	private Integer id;
+	private String id;
+	private String manaboxId;
 	private String scryfallId;
 	private String binderName;
 	private String binderType;
 	private String name;
 	private String setCode;
 	private String setName;
-	private Integer collectorNumber;
+	private String collectorNumber;
 	private FoilEnum foil;
 	private RarityEnum rarity;
 	private Integer quantity;

@@ -23,6 +23,7 @@ INSERT INTO m3c.mana_box_collection (
 
 INSERT INTO m3c.mana_box_card (
     "id",
+    "manabox_id",
     "scryfall_id",
     "binder_name",
     "binder_type",
@@ -41,14 +42,15 @@ INSERT INTO m3c.mana_box_card (
     "purchase_price_currency",
     "id_collection"
 ) VALUES (
-    54680,
+    'ba017979-a99e-4129-b1a8-fc7643573ae3',
+    '54680',
     'a48c3a2f-678b-4e70-a53f-258457d88d29',
     'Hors-decks',
     'binder',
     'Field Research',
     'ZNR',
     'Zendikar Rising',
-    58,
+    '58',
     'normal',
     'common',
     4,
@@ -63,6 +65,7 @@ INSERT INTO m3c.mana_box_card (
 
 INSERT INTO m3c.mana_box_card (
     "id",
+    "manabox_id",
     "scryfall_id",
     "binder_name",
     "binder_type",
@@ -81,14 +84,15 @@ INSERT INTO m3c.mana_box_card (
     "purchase_price_currency",
     "id_collection"
 ) VALUES (
-    54832,
+    'c031b48d-d4e4-44ef-bdab-fb8c8f769f72',
+    '54832',
     'faf65512-8228-48f4-ba7b-d861b66d28c9',
     'Hors-decks',
     'binder',
     'Oblivion''s Hunger',
     'ZNR',
     'Zendikar Rising',
-    119,
+    '119',
     'normal',
     'common',
     4,
@@ -103,6 +107,7 @@ INSERT INTO m3c.mana_box_card (
 
 INSERT INTO m3c.mana_box_card (
     "id",
+    "manabox_id",
     "scryfall_id",
     "binder_name",
     "binder_type",
@@ -121,14 +126,15 @@ INSERT INTO m3c.mana_box_card (
     "purchase_price_currency",
     "id_collection"
 ) VALUES (
-    54433,
+    '1c9c93a0-4249-4afb-849a-2cb2fe0446e2',
+    '54433',
     '0b057eb7-8439-4d26-89df-c345ab2773e1',
     'Hors-decks',
     'binder',
     'Roiling Vortex',
     'ZNR',
     'Zendikar Rising',
-    156,
+    '156',
     'normal',
     'rare',
     4,
@@ -143,6 +149,7 @@ INSERT INTO m3c.mana_box_card (
 
 INSERT INTO m3c.mana_box_card (
     "id",
+    "manabox_id",
     "scryfall_id",
     "binder_name",
     "binder_type",
@@ -161,14 +168,15 @@ INSERT INTO m3c.mana_box_card (
     "purchase_price_currency",
     "id_collection"
 ) VALUES (
-    54691,
+    '3331f259-1e5d-426d-b8be-fc28f71df2bf',
+    '54691',
     'ad57c2f3-d9cb-4165-bb39-897b5b12689e',
     'Hors-decks',
     'binder',
     'Teeterpeak Ambusher',
     'ZNR',
     'Zendikar Rising',
-    169,
+    '169',
     'normal',
     'common',
     8,
@@ -183,6 +191,7 @@ INSERT INTO m3c.mana_box_card (
 
 INSERT INTO m3c.mana_box_card (
     "id",
+    "manabox_id",
     "scryfall_id",
     "binder_name",
     "binder_type",
@@ -201,14 +210,15 @@ INSERT INTO m3c.mana_box_card (
     "purchase_price_currency",
     "id_collection"
 ) VALUES (
-    54687,
+    '8fd93fe2-1e3e-4146-9e54-e2add620b323',
+    '54687',
     'ab62382d-2dc9-4a60-b031-c845ebad0357',
     'Hors-decks',
     'binder',
     'Cragplate Baloth',
     'ZNR',
     'Zendikar Rising',
-    183,
+    '183',
     'normal',
     'rare',
     2,

@@ -7,3 +7,7 @@ databaseChangeLog:
       file: classpath:db/changelog/m3c-5-create-table-mana-box-collection.yaml
   - include:
       file: classpath:db/changelog/m3c-5-update-table-mana-box-card-new-id-collection-field.yaml
+  - include:
+      file: classpath:db/changelog/m3c-6-update-table-mana-box-card-collector-number-is-varchar.yaml
+  - include:
+      file: classpath:db/changelog/m3c-6-update-table-mana-box-card-new-id-manabox-field.yaml
