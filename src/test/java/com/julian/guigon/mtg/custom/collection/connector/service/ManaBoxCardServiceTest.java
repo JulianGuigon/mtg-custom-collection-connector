@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
-public class ManaBoxCardServiceTest {
+class ManaBoxCardServiceTest {
 
 	private static final UUID ID_COLLECTION = UUID.fromString("a7397c6a-a29f-4495-898c-028355708f33");
 	private static final List<ManaBoxCardMb> THREE_MANA_BOX_CARD_MBS = List.of(
@@ -155,7 +155,7 @@ public class ManaBoxCardServiceTest {
 
 		// THEN
 		Mockito.verifyNoInteractions(manaBoxCardRepository);
-		Assertions.assertThat(result).isEqualTo(0);
+		Assertions.assertThat(result).isZero();
 	}
 
 	@Test
@@ -168,7 +168,7 @@ public class ManaBoxCardServiceTest {
 		final int result = sut.insertAllManaBoxCards(THREE_MANA_BOX_CARDS);
 
 		// THEN
-		Assertions.assertThat(result).isEqualTo(0);
+		Assertions.assertThat(result).isZero();
 	}
 
 	@Test

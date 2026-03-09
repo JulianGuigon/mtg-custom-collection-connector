@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import tools.jackson.databind.ObjectMapper;
 
 @WebMvcTest(ManaBoxCollectionController.class)
-public class ManaBoxCollectionControllerTest {
+class ManaBoxCollectionControllerTest {
 
 	private static final String COLLECTION_NAME = "Collection Julian";
 	private static final String PATH = "src/test/resources/csv/book.csv";

@@ -1,11 +1,10 @@
 package com.julian.guigon.mtg.custom.collection.connector.csv.apache.commons.csv;
 
+import com.julian.guigon.mtg.custom.collection.connector.csv.apache.commons.csv.mapper.CsvRecordMapper;
 import com.julian.guigon.mtg.custom.collection.connector.csv.model.CsvRecord;
 import com.julian.guigon.mtg.custom.collection.connector.csv.service.CsvReaderService;
-import com.julian.guigon.mtg.custom.collection.connector.csv.apache.commons.csv.mapper.CsvRecordMapper;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
@@ -16,8 +15,7 @@ import java.util.List;
 
 @Component
 public class ApacheCommonsCsvService implements CsvReaderService {
-
-	@Autowired
+	
 	private final CsvRecordMapper csvRecordMapper;
 
 	private ApacheCommonsCsvService(final CsvRecordMapper csvRecordMapper) {

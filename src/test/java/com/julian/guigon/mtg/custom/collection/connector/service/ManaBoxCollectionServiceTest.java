@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
-public class ManaBoxCollectionServiceTest {
+class ManaBoxCollectionServiceTest {
 
 	private static final UUID ID_COLLECTION = UUID.fromString("a7397c6a-a29f-4495-898c-028355708f33");
 	private static final String COLLECTION_NAME = "Collection Julian";
@@ -130,7 +130,7 @@ public class ManaBoxCollectionServiceTest {
 		final int result = sut.insertOneManaBoxCollection(null);
 
 		// THEN
-		Assertions.assertThat(result).isEqualTo(0);
+		Assertions.assertThat(result).isZero();
 		Mockito.verifyNoInteractions(manaBoxCollectionRepository);
 	}
 
@@ -156,7 +156,7 @@ public class ManaBoxCollectionServiceTest {
 		final int result = sut.updateManaBoxCollection(null);
 
 		// THEN
-		Assertions.assertThat(result).isEqualTo(0);
+		Assertions.assertThat(result).isZero();
 		Mockito.verifyNoInteractions(manaBoxCollectionRepository);
 	}
 

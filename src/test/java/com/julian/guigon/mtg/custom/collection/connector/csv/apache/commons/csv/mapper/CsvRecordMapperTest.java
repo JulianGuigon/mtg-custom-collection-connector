@@ -1,7 +1,6 @@
 package com.julian.guigon.mtg.custom.collection.connector.csv.apache.commons.csv.mapper;
 
 import com.julian.guigon.mtg.custom.collection.connector.csv.model.CsvRecord;
-import com.julian.guigon.mtg.custom.collection.connector.csv.apache.commons.csv.mapper.CsvRecordMapperImpl;
 import org.apache.commons.csv.CSVRecord;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.InstanceOfAssertFactories;
@@ -15,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class CsvRecordMapperTest {
+class CsvRecordMapperTest {
 
 	@InjectMocks
 	private CsvRecordMapperImpl sut;

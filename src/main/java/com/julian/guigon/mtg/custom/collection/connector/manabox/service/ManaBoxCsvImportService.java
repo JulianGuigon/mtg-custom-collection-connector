@@ -28,6 +28,7 @@ public class ManaBoxCsvImportService {
 		this.manaBoxCollectionService = manaBoxCollectionService;
 	}
 
+	@Transactional
 	public ImportResult importManaBoxCsv(String path, String collectionName, boolean newCollection) {
 		validateParams(path, collectionName);
 		final ManaBoxCollection collection = getManaBoxCollection(collectionName, newCollection);
@@ -37,7 +38,6 @@ public class ManaBoxCsvImportService {
 		return clearAndCreateCollection(collection, cards);
 	}
 
-	@Transactional
 	private ImportResult clearAndCreateCollection(ManaBoxCollection collection, ParsedCards cards) {
 		manaBoxCardService.deleteAllManaBoxCardsByIdCollection(collection.id());
 		final int insertedCount = manaBoxCardService.insertAllManaBoxCards(cards.cards());
@@ -67,7 +67,7 @@ public class ManaBoxCsvImportService {
 											   "Veuillez spécifier newCollection=true en paramètre de requête dans le " +
 											   "cas d'une création d'une nouvelle collection.");
 		}
-		return collection.get();
+		return collection.orElse(null);
 	}
 
 	private List<ManaBoxCard> readCardsFromCsv(String path, ManaBoxCollection collection) {
