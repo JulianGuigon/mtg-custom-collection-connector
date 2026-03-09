@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public record ImportResult (
 		UUID idCollection,
-		int imported,
+		Integer imported,
 		List<String> binderNames
 ) {
 }

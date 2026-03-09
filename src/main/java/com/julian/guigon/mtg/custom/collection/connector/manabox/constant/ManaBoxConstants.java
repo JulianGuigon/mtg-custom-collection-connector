@@ -3,6 +3,8 @@ package com.julian.guigon.mtg.custom.collection.connector.manabox.constant;
 import java.util.List;
 
 public class ManaBoxConstants {
+	private ManaBoxConstants() {}
+
 	public static final List<String> HEADERS = List.of(
 			"Binder Name",
 			"Binder Type",

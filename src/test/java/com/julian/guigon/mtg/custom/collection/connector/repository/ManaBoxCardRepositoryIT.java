@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class ManaBoxCardRepositoryIT extends AbstractPostgresIT {
+class ManaBoxCardRepositoryIT extends AbstractPostgresIT {
 
 	private static final UUID ID_COLLECTION = UUID.fromString("a7397c6a-a29f-4495-898c-028355708f33");
 
@@ -102,7 +102,7 @@ public class ManaBoxCardRepositoryIT extends AbstractPostgresIT {
 		final int cardsInDb = sut.insertAllManaBoxCardMb(cards);
 
 		// THEN
-		Assertions.assertThat(cardsInDb).isEqualTo(0);
+		Assertions.assertThat(cardsInDb).isZero();
 	}
 
 	@Test

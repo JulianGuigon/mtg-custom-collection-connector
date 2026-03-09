@@ -11,8 +11,6 @@ import org.instancio.Select;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -22,7 +20,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
-public class ManaBoxCardMapperTest {
+class ManaBoxCardMapperTest {
 
 	@InjectMocks
 	private ManaBoxCardMapperImpl sut;
@@ -382,8 +380,8 @@ public class ManaBoxCardMapperTest {
 		Assertions.assertThat(manaBoxCard1.quantity()).isEqualTo(4);
 		Assertions.assertThat(manaBoxCard1.scryfallId()).isEqualTo("a48c3a2f-678b-4e70-a53f-258457d88d29");
 		Assertions.assertThat(manaBoxCard1.purchasePrice()).isEqualTo(0.07f);
-		Assertions.assertThat(manaBoxCard1.misprint()).isEqualTo(false);
-		Assertions.assertThat(manaBoxCard1.altered()).isEqualTo(false);
+		Assertions.assertThat(manaBoxCard1.misprint()).isFalse();
+		Assertions.assertThat(manaBoxCard1.altered()).isFalse();
 		Assertions.assertThat(manaBoxCard1.condition()).isEqualTo(ConditionEnum.NEAR_MINT);
 		Assertions.assertThat(manaBoxCard1.language()).isEqualTo(LanguageEnum.FRENCH);
 		Assertions.assertThat(manaBoxCard1.purchasePriceCurrency()).isEqualTo(CurrencyEnum.EURO);

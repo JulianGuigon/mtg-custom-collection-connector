@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @ExtendWith(MockitoExtension.class)
-public class ApacheCommonsCsvServiceTest {
+class ApacheCommonsCsvServiceTest {
 
 	private static final String PATH = "src/test/resources/csv/book.csv";
 	private static final List<String> HEADERS = List.of("author", "title");

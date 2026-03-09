@@ -14,7 +14,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
 
-public class ManaBoxCollectionRepositoryIT extends AbstractPostgresIT {
+class ManaBoxCollectionRepositoryIT extends AbstractPostgresIT {
 	private static final UUID ID_COLLECTION = UUID.fromString("a7397c6a-a29f-4495-898c-028355708f33");
 	private static final String NAME_COLLECTION = "Collection Julian";
 
@@ -107,7 +107,6 @@ public class ManaBoxCollectionRepositoryIT extends AbstractPostgresIT {
 							Assertions.assertThat(collectionInDbMapped.getBinderNames()).isEqualTo(manaBoxCollectionMb.getBinderNames());
 						}
 				);
-		;
 	}
 
 	@Test

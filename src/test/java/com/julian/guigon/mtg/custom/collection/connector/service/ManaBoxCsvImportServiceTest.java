@@ -27,7 +27,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
-public class ManaBoxCsvImportServiceTest {
+class ManaBoxCsvImportServiceTest {
 
 	private static final String PATH = "csv/small_collection.csv";
 	private static final String COLLECTION_NAME = "Collection Julian";
@@ -83,7 +83,7 @@ public class ManaBoxCsvImportServiceTest {
 		Mockito.when(csvReaderService.readCsvFromPath(PATH, ManaBoxConstants.HEADERS)).thenReturn(records);
 		Mockito.when(manaBoxCardMapper.manaBoxCardsFromCsvRecords(records, ID_COLLECTION)).thenReturn(manaBoxCards);
 		Mockito.when(manaBoxCardService.insertAllManaBoxCards(acCards.capture())).thenAnswer(
-				(invocation) -> ((List<?>) invocation.getArgument(0)).size()
+				invocation -> ((List<?>) invocation.getArgument(0)).size()
 		);
 		Mockito.lenient().when(manaBoxCollectionService.insertOneManaBoxCollection(ArgumentMatchers.any(ManaBoxCollection.class))).thenReturn(1);
 
